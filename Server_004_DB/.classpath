@@ -13,7 +13,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/bizworks/server_works/JavaJDK/lombok.jar"/>
-	<classpathentry kind="lib" path="C:/bizworks/server_works/JavaJDK/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/Bizworks/server_works/Biz_2021_04_Server/myJDK/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Bizworks/server_works/Biz_2021_04_Server/myJDK/ojdbc6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
