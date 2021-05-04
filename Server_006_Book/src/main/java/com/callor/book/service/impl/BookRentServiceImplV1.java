@@ -12,31 +12,28 @@ import com.callor.book.model.BookRentVO;
 import com.callor.book.persistence.DBContract;
 import com.callor.book.service.BookRentService;
 
-public class BookRentServiceImplV1 implements BookRentService{
+public class BookRentServiceImplV1 implements BookRentService {
 
 	protected Connection dbConn;
+
 	public BookRentServiceImplV1() {
 		dbConn = DBContract.getDBConnection();
-	
+
 	}
+
 	/*
-	 * Exception 처리 방법 2가지
-	 * 1. try-catch 를 사용하기
-	 * 		exception이 발생할 코드를 감싸서
-	 * 		"직접" exception을 처리학
+	 * Exception 처리 방법 2가지 1. try-catch 를 사용하기 exception이 발생할 코드를 감싸서 "직접"
+	 * exception을 처리학
 	 * 
-	 * 2. 떠넘기기(던지기)
-	 * 		method throws를 추가하여
-	 * 		호출한 method에게 exception을 되돌려 보내기
-	 * 		현재 method에서 직접 exception을 처리하는 코드가 없어서
-	 * 		코드가 다소 간소화 된다
+	 * 2. 떠넘기기(던지기) method throws를 추가하여 호출한 method에게 exception을 되돌려 보내기 현재 method에서
+	 * 직접 exception을 처리하는 코드가 없어서 코드가 다소 간소화 된다
 	 * 
-	 * 		호출한 곳에서 대신 exception을 처리한다
+	 * 호출한 곳에서 대신 exception을 처리한다
 	 */
-	protected List<BookRentDTO> select(PreparedStatement pStr) throws SQLException{
+	protected List<BookRentDTO> select(PreparedStatement pStr) throws SQLException {
 		List<BookRentDTO> brList = new ArrayList<BookRentDTO>();
 		ResultSet rStr = pStr.executeQuery();
-		while(rStr.next()) {
+		while (rStr.next()) {
 			BookRentDTO brDTO = new BookRentDTO();
 			brDTO.setBr_seq(rStr.getLong("주문번호"));
 			brDTO.setBr_sdate(rStr.getString("대여일"));
@@ -47,24 +44,24 @@ public class BookRentServiceImplV1 implements BookRentService{
 			brDTO.setBr_title(rStr.getString("도서명"));
 			brDTO.setBr_price(rStr.getInt("대여금"));
 			brDTO.setBr_edate(rStr.getString("반납일"));
-			
+
 			brList.add(brDTO);
-			
+
 		}
 		return brList;
 	}
-	
+
 	@Override
 	public List<BookRentDTO> selectAll() {
 		// TODO 전체리스트
-		
+
 		String sql = " SELECT * FROM view_도서대여정보";
 		PreparedStatement pStr = null;
-		
+
 		try {
 			pStr = dbConn.prepareStatement(sql);
 			List<BookRentDTO> brList = this.select(pStr);
-			
+
 			pStr.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -76,12 +73,12 @@ public class BookRentServiceImplV1 implements BookRentService{
 	@Override
 	public BookRentDTO findById(Long seq) {
 		// TODO PK로 조회하기
-		
+
 		String sql = " SELECT * FROM view_도서대여정보";
 		sql += " WHERE 주문번호 = ? ";
-		
+
 		PreparedStatement pStr = null;
-		
+
 		try {
 			// 아래의 2개 코드에 의해서 WHERE 주문번호 = 값 형식의 SQL이 만들어진다
 			pStr = dbConn.prepareStatement(sql);
@@ -89,27 +86,24 @@ public class BookRentServiceImplV1 implements BookRentService{
 			// PK로 조회를 했기 때문에
 			// List에는 1개 밖에 데이터가 없다
 			// List의 0번 데이터만 getter하여 DTO에 담기
-			BookRentDTO brDTO = this.select(pStr).get(0);
-			
+			List<BookRentDTO> brList = this.select(pStr);
+			BookRentDTO brDTO = null;
+			if (brList != null && brList.size() > 0) {
+				brDTO = brList.get(0);
+			}
 			pStr.close();
-			
 			return brDTO;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		/*
-		 * DB Injection 공격에 사용되는 매우 취약한 코드
-		 * 만약 매개변수로 직접 SQL 명령문을 다음과 같이 만들면
-		 * " WHERE 도서명 = " + title;
-		 * title 변수값에 1 or 1 = 1 과 같은 문자열을 담아서 
-		 * 보내면 실제 쿼리는
-		 * WHERE 도서명 = 1 or 1 = 1 과 같이 만들어진다
+		 * DB Injection 공격에 사용되는 매우 취약한 코드 만약 매개변수로 직접 SQL 명령문을 다음과 같이 만들면
+		 * " WHERE 도서명 = " + title; title 변수값에 1 or 1 = 1 과 같은 문자열을 담아서 보내면 실제 쿼리는 WHERE
+		 * 도서명 = 1 or 1 = 1 과 같이 만들어진다
 		 * 
-		 * Prepare...를 사용할때는 조건문의 변수가 포함될 
-		 * 위치에 ? 기호를 사용한다
-		 * WHERE 도서명 = ? 와 같이 사용한다
+		 * Prepare...를 사용할때는 조건문의 변수가 포함될 위치에 ? 기호를 사용한다 WHERE 도서명 = ? 와 같이 사용한다
 		 */
 		// DB Injection 공격에 사용되는 매우 취약한 코드
 		// " WHERE 주문번호 = " + seq;
@@ -129,18 +123,17 @@ public class BookRentServiceImplV1 implements BookRentService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return null;
 	}
 
 	@Override
 	public List<BookRentDTO> findByBookName(String name) {
 		// TODO 도서명으로 조회
-		
+
 		String sql = " SELECT * FROM view_도서대여정보 ";
 		sql += " WHERE 도서명 LIKE '%' || ? || '%' ";
-		
+
 		PreparedStatement pStr = null;
 		try {
 			pStr = dbConn.prepareStatement(sql);
