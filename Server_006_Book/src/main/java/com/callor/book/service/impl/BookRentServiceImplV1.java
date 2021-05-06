@@ -174,7 +174,30 @@ public class BookRentServiceImplV1 implements BookRentService {
 
 	@Override
 	public int insert(BookRentVO bookRentVO) {
-		// TODO Auto-generated method stub
+		// 주소입력 할 때 내가 만든 SQL Developer랑 이름이 맞는지 한 번 더 확인하자 
+		String sql = " INSERT INTO tbl_rent ";
+		sql += " (br_seq, br_sdate, br_isbn, br_bcode, br_price)";
+		sql += " VALUES(seq_rent.nextVAL, ?, ?, ?, ? ) ";
+				
+		PreparedStatement pStr = null;
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, bookRentVO.getBr_sdate());
+			pStr.setString(2, bookRentVO.getBr_isbn());
+			pStr.setString(3, bookRentVO.getBr_bcode());
+			pStr.setInt(4, bookRentVO.getBr_price());
+			// insert, update, delete 와 관련된 SQL은
+			// executeUpdate() method로 처리한다
+			// 정상적으로 SQL이 성공하면 result 에는
+			// 0 보다 큰 값이 담긴다
+			int result = pStr.executeUpdate();
+			pStr.close();
+			return result;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 

@@ -15,8 +15,9 @@
 	생년 : ${BUYER.bu_birth } <br/>
 	=================================</p>
 	<h1>도서명을 입력하세요</h1>
-	<form>
-		<input name"bk_title"/>
+	<form action="book">
+		<input name="bu_code" value="${BUYER.bu_code }"/>
+		<input name="bk_title"/>
 		<button>검색</button>
 	</form>
 </body>
