@@ -31,6 +31,7 @@ public class BookRentServiceImplV1 implements BookRentService {
 	 * 호출한 곳에서 대신 exception을 처리한다
 	 */
 	protected List<BookRentDTO> select(PreparedStatement pStr) throws SQLException {
+		
 		List<BookRentDTO> brList = new ArrayList<BookRentDTO>();
 		ResultSet rStr = pStr.executeQuery();
 		while (rStr.next()) {

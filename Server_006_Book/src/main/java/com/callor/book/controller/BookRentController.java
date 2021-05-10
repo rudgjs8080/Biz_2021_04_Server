@@ -50,9 +50,9 @@ public class BookRentController extends HttpServlet {
 		// rent/* 로 요청이 되면 * 위치에 부착되는
 		// sub 요청을 분리해낸다
 		// rent/seq 라고 요청을 하면
-		// subPath에는 /sez라는 문자열이 담길것이다
+		// subPath에는 /seq라는 문자열이 담길것이다
 		String subPath = req.getPathInfo();
-
+		
 		// outputStream을 사용하여 문자열 방식으로
 		// 응답을 하기위한 준비
 		resp.setContentType("text/html;charset=UTF-8");
