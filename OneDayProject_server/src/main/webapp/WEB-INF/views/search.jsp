@@ -13,10 +13,19 @@
 	
 	<c:forEach items="${MF }" var="F">
 	<p>
-	<a href="search2?mf_fname=${F.f_name }">${F.f_name }</a>
+	<a href="search2?mf_fname=${F.f_name }">제품명 : ${F.f_name }</a>
+	제조사코드 : ${F.f_code }
+	출시연도 : ${F.f_year }
+	제조사명 : ${F.c_name }
+	분류명 : ${F.i_name }
+	제공량 : ${F.f_one }
+	총제공량 : ${F.f_total }
+	에너지 : ${F.f_energy }
+	단백질 : ${F.f_protein }
+	지방 : ${F.f_fat }
+	탄수화물 : ${F.f_carbon }
+	총당류 : ${F.f_sugar }
 	</p>
-	
-	
 	</c:forEach>
 
 </body>

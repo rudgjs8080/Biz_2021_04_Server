@@ -11,6 +11,8 @@ public interface MyFoodService {
 	
 	// 식품명으로 섭취정보 조회
 	public List<MyFoodDTO> findByFoodName(String name);
+	// 날짜로 섭취정보 조회
+	public List<MyFoodDTO> findByDate(String date);
 	
 	public int insert(MyFoodVO myfoodVO);
 	public int update(MyFoodVO myfoodVO);
