@@ -21,7 +21,7 @@ chrome browser의 캐쉬 때문에
 css, js 등 외부 파일을 변경해도 적용이 안되는 경우가 있다
 ?ver=숫자 값을 변경하면 chrome browser가
 파일이 변경된 것으로 인식하여 새로고침을 해준다 --%>
-<link rel="stylesheet" type="text/css" 	href="${rootPath}/css/home.css?ver=1" />
+<link rel="stylesheet" type="text/css" 	href="${rootPath}/css/home.css?ver=2" />
 </head>
 <body>
 	<h1>다이어트를 도와줘!</h1>
