@@ -1,6 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
+/*
+	CSS를 사용하여 화면을 디자인 할때
+	항상 제일먼저 있어야 할 설정
+	기본 HTML의 margin, padding을 clear(ReSet)하여
+	이후에 작성된 CSS의 margin, padding을 원활히
+	적용시키기 위함이다
+	
+	box-sizing: border-box;
+	Block type tag를 사용하여 화면을 그릴때
+	padding, margin, border 값을 지정 할 때
+	좌 우로 벗어나서 그려지는 현상을 없애기 위한 설정*/
+*{
+	margin : 0;
+	padding : 0;
+	box-sizing: border-box;
+}
+h1.main {
+	background-color: green;
+	color:white;
+	text-align: center;
+	padding:1rem;
+}
+
 nav#main {
 	background-color: rgba(0, 255, 0, 0.3);
 	padding: 20px;
@@ -73,7 +96,7 @@ document.addEventListener("DOMContentLoaded",function(){
         let text = ev.target.textContent
         alert(text + "가 클릭됩니다")
         
-		let text = ev.target.textContent;        
+		        
     
     if(text == "home"){
     	url += "/"
@@ -92,7 +115,7 @@ document.addEventListener("DOMContentLoaded",function(){
 })
     
 </script>
-<h1>방명록 2021</h1>
+<h1 class="main">방명록 2021</h1>
 <nav id="main">
 	<ul>
 		<%--

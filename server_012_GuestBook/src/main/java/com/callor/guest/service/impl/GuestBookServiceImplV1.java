@@ -35,7 +35,7 @@ public class GuestBookServiceImplV1 implements GuestBookService {
 			gbVO.setGb_content(rSet.getString(Dbinfo.gb_content));
 			gbList.add(gbVO);
 		}
-		
+
 		return gbList;
 	}
 
@@ -66,16 +66,16 @@ public class GuestBookServiceImplV1 implements GuestBookService {
 
 		String sql = " select * from tbl_guest_book ";
 		sql += " where gb_seq = ? ";
-		
+
 		PreparedStatement pStr = null;
-		
+
 		try {
 			pStr = dbConn.prepareStatement(sql);
 			pStr.setLong(1, seq);
-			
+
 			List<GuestBookVO> gbList = this.select(pStr);
 			pStr.close();
-			if(gbList != null && gbList.size() > 0) {
+			if (gbList != null && gbList.size() > 0) {
 				System.out.println(gbList.toString());
 				return gbList.get(0);
 			}
@@ -106,19 +106,73 @@ public class GuestBookServiceImplV1 implements GuestBookService {
 
 	@Override
 	public Integer insert(GuestBookVO gbVO) {
-		// TODO Auto-generated method stub
+		// TODO 데이터 추가하기
+		String sql = " insert into tbl_guest_book ";
+		sql += " (gb_date, gb_time, gb_writer, gb_email, gb_password, gb_content)";
+		sql += " values(?,?,?,?,?,?)";
+		
+		PreparedStatement pStr = null;
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, gbVO.getGb_date());
+			pStr.setString(2, gbVO.getGb_time());
+			pStr.setString(3, gbVO.getGb_writer());
+			pStr.setString(4, gbVO.getGb_email());
+			pStr.setString(5, gbVO.getGb_password());
+			pStr.setString(6, gbVO.getGb_content());
+			System.out.println("Insert 완료");
+			return pStr.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return null;
 	}
 
 	@Override
 	public Integer update(GuestBookVO gbVO) {
-		// TODO Auto-generated method stub
+		// TODO 데이터 수정하기 
+		String sql = " update tbl_guest_book Set ";
+		sql += " gb_date = ?, gb_time= ?, gb_writer= ?, gb_email= ?, gb_password= ?, gb_content= ?";
+		sql += " where gb_seq = ? ";
+		PreparedStatement pStr = null;
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, gbVO.getGb_date());
+			pStr.setString(2, gbVO.getGb_time());
+			pStr.setString(3, gbVO.getGb_writer());
+			pStr.setString(4, gbVO.getGb_email());
+			pStr.setString(5, gbVO.getGb_password());
+			pStr.setString(6, gbVO.getGb_content());
+			pStr.setLong(7, gbVO.getGb_seq());
+			System.out.println("update 완료");
+			return pStr.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
 	@Override
 	public Integer delete(Long seq) {
-		// TODO Auto-generated method stub
+		// TODO 데이터 삭제
+		String sql = " delete from tbl_guest_book ";
+		sql += " where gb_seq = ? ";
+		
+		PreparedStatement pStr = null;
+		
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setLong(1, seq);
+			pStr.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
