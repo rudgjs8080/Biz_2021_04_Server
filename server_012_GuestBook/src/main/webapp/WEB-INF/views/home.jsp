@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded",function(){
 		}
 	section#main button:hover {
 		box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
-	}
+	}7
 </style>
 </head>
 <body>

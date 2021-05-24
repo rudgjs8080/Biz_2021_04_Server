@@ -170,7 +170,7 @@ public class GuestBookServiceImplV1 implements GuestBookService {
 			pStr.setLong(1, seq);
 			pStr.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO z`Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
