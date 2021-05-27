@@ -26,7 +26,7 @@ public class HomeController extends HttpServlet{
 		
 		req.setAttribute("ST", stList);
 		
-		req.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/practice.jsp").forward(req, resp);
 	}
 	
 	

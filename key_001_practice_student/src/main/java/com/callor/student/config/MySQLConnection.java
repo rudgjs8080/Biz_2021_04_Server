@@ -9,8 +9,8 @@ public class MySQLConnection {
 	
 	static {
 		String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://127.0.0.1:3306/root";
-		String username = "student";
+		String url = "jdbc:mysql://127.0.0.1:3306/student";
+		String username = "root";
 		String password = "12341234";
 		
 		if(dbConn == null) {

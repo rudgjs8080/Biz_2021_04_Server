@@ -9,7 +9,7 @@ public class DBContract {
 
 	static {
 		String jdbcDriver = "oracle.jdbc.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:mysql://127.0.0.1:3306/mydb";
 		String username = "myfood";
 		String password = "myfood";
 

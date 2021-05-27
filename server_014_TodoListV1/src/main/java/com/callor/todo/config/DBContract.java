@@ -10,7 +10,7 @@ public class DBContract {
 		
 		static {
 			String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-			String url = "jdbc:mysql://127.0.0.1:3306/mydb";
+			String url = "jdbc:mysql:thin:@localhost:1521:xe";
 			String username = "gbuser";
 			String password = "12345";
 			
