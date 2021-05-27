@@ -17,7 +17,7 @@ import java.util.Map;
  * Map<String, Class> maps 형식으로 type을 정의하고
  * maps.put<"이름", 객체> 형식으로 데이터를 추가하기
  * 
- * Class class = map.get("이름")형식으로 값을 읽어서 다른 변수에 담을 수 있다
+ * Class class = maps.get("이름")형식으로 값을 읽어서 다른 변수에 담을 수 있다
  * System.out.println(map.get("이름")) 형식으로
  * 		Console에 출력하기
  * 
