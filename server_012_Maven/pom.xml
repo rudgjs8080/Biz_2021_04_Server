@@ -8,6 +8,13 @@
 	<packaging>pom</packaging>
 	<name>rudgjs8080</name>
 	<properties>
+		<!-- pom.xml에서 공통으로 사용할 변수
+			 Java (1.1)
+			 Java2 (1.2 ~ 1.4)
+			 Java5 (1.5 ~ 1.6)
+			 Java7 (1.7 ~ 1.8)
+			 Java8 (1.8 ~ 9, 10, 11, 15, 16)
+			 10 새로운 변수 선언 키워드 (var)-->
 		<java-version>15</java-version>
 	</properties>
 
@@ -49,6 +56,7 @@
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<!-- jsp에서 tag lib를 사용하기 위한 rjt -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
