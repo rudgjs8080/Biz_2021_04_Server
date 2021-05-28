@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>My TODO List</title>
 <style>
 	/* style 지정을 위하여 전체 초기화*/
@@ -14,11 +15,12 @@
 		margin: 0;
 		padding: 0;
 	}
-	h1, form.doit {
+	h1, form.doit , table.td_list {
 		width: 50%;
 		margin: 10px auto;
 		border-radius : 5px;
 	}
+	
 	h1 {
 		background-color: rgba(0, 255, 0, 0.3);
 		color: white;
@@ -46,7 +48,98 @@
 		background-color: #eee;
 		
 	}
+	table.td_list {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	table.td_list td {
+		padding: 7px;
+		border-top: 1px solid green;
+		cursor: pointer;
+		
+		/*
+		실험적인 css 적용하기
+		user-select: none 은 text를 dblClick 했을 때
+		선택박스가 나타나지 않도록 적용
+		그냥 user-select: 기능이 적용되는 브라우저용
+		-webkit-: 크롬, 구글, 사파리 적용가능
+		-moz- : 파이어폭스 계열
+		-ms- : 익스플로러
+		-o- : 오페라
+		*/
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		
+	}
+	table.td_list tr:last-child td{
+		border-bottom: 3px solid green;
+	}
+	table.td_list td.count {
+		font-size: 20px;
+		text-align: right;
+		width: 5%;
+		color: blue;
+	}
+	table.td_list td.sdate,
+	table.td_list td.edate{
+		font-size: 15px;
+		text-align: center;
+		width: 20%;
+	}
+	table.td_list td.doit {
+	font-size: 30px;
+	text-align: left;
+	/*
+	*/
+	max-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-decoration: 
+	}
+	.through-text {
+		text-decoration: 2px line-through red;
+	}
+	@media screen and (max-width:800px){
+	h1, form.doit, table.td_list{
+		width:70%;
+		margin: 0 auto;
+	}}
+	@media screen and (max-width:480px){
+	h1, form.doit, table.td_list{
+		width:95%;
+		margin: 0 auto;
+	}}
+	
+		
+	
+	
 </style>
+<script>
+	document.addEventListener("DOMContentLoaded",()=>{
+		document.querySelector("table.td_list").addEventListener("dblclick", (ev)=>{
+			
+			let tagName = ev.target.tagName
+			if(tagName == "TD"){
+				//  클릭된 TD tag를 감싸고 있는 TR객체가 누군지 확인
+				let tr = ev.target.closest("TR").dataset
+				
+				let td_seq = tr.seq
+				let td_edate = tr.edate
+				
+				let confirm_msg = td_edate ? "완료를 취소합니다" : "TODO를 완료했나요?";
+				
+				if(confirm(confirm_msg)){
+					location.href = "${rootPath}/expire?td_seq=" + td_seq
+				}
+			}
+			
+		})
+	})
+</script>
 </head>
 <body>
 	<h1>To Do List</h1>
@@ -76,6 +169,20 @@
 		<form class="doit" method="POST" action="${rootPath}/insert">
 			<input name="td_doit" placeholder="할일을 입력한 후 Enter">
 		</form>
+		<div class="msg">
+			${ERROR}${COMP}
+		</div>
+		<table class="td_list">
+			<c:forEach items="${TDLIST }" var="TD" varStatus="ST">
+				<tr data-seq="${TD.td_seq }" data-edate="${TD.td_edate }">
+				<td class="count">${ST.count}</td>
+				<td class="sdate">${TD.td_sdate }<br/>${TD.td_stime}</td>
+				<td class="doit" ${empty TD.td_edate ? '' : 'through-text'}>${TD.td_doit}</td>
+				<td class="edate">${TD.td_edate }<br/>${TD.td_etime}</td>
+				</tr>
+			</c:forEach>
+			
+		</table>
 	
 </body>
 </html>
