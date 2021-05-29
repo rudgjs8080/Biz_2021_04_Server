@@ -20,6 +20,7 @@ public class MySQLConnection {
 				System.out.println("MySQL 접속 성공");
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
 				System.out.println("MySQL 접속 실패");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
